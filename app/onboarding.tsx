@@ -1,0 +1,81 @@
+import React from 'react';
+import { View, Text, StyleSheet, ImageBackground, TouchableOpacity } from 'react-native';
+
+export default function OnboardingScreen() {
+  return (
+    <ImageBackground
+      source={require('../assets/images/your-background-image.png')} // Replace with your image path
+      style={styles.bg}
+      resizeMode="cover"
+    >
+      <View style={styles.card}>
+        <Text style={styles.title}>Welcome to JobConnect</Text>
+        <Text style={styles.subtitle}>
+          Building Bridges Between Skills and Employers.
+        </Text>
+        <TouchableOpacity style={styles.loginBtn}>
+          <Text style={styles.loginText}>Login</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.signupBtn}>
+          <Text style={styles.signupText}>Sign up</Text>
+        </TouchableOpacity>
+      </View>
+    </ImageBackground>
+  );
+}
+
+const styles = StyleSheet.create({
+  bg: {
+    flex: 1,
+    justifyContent: 'flex-end',
+  },
+  card: {
+    backgroundColor: '#fff',
+    borderRadius: 28,
+    margin: 16,
+    padding: 24,
+    alignItems: 'center',
+    elevation: 8,
+  },
+  title: {
+    color: '#0033FF',
+    fontSize: 22,
+    fontWeight: 'bold',
+    marginBottom: 12,
+    textAlign: 'center',
+  },
+  subtitle: {
+    fontSize: 18,
+    color: '#222',
+    marginBottom: 32,
+    textAlign: 'center',
+  },
+  loginBtn: {
+    backgroundColor: '#0033FF',
+    borderRadius: 12,
+    paddingVertical: 12,
+    paddingHorizontal: 32,
+    marginBottom: 16,
+    width: '100%',
+    alignItems: 'center',
+  },
+  loginText: {
+    color: '#fff',
+    fontSize: 18,
+    fontWeight: 'bold',
+  },
+  signupBtn: {
+    borderColor: '#0033FF',
+    borderWidth: 2,
+    borderRadius: 12,
+    paddingVertical: 12,
+    paddingHorizontal: 32,
+    width: '100%',
+    alignItems: 'center',
+  },
+  signupText: {
+    color: '#0033FF',
+    fontSize: 18,
+    fontWeight: 'bold',
+  },
+});
