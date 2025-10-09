@@ -6,7 +6,7 @@ export default function OnboardingScreen() {
   const router = useRouter();
   return (
     <ImageBackground
-      source={require('../assets/images/your-background-image.png')} // Replace with your image path
+      source={require('../assets/images/your-background-image.png')}
       style={styles.bg}
       resizeMode="cover"
     >
@@ -20,6 +20,9 @@ export default function OnboardingScreen() {
         </TouchableOpacity>
         <TouchableOpacity style={styles.signupBtn} onPress={() => router.push('/signup')}>
           <Text style={styles.signupText}>Sign up</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.skipBtn} onPress={() => router.replace('/')}>
+          <Text style={styles.skipText}>Skip</Text>
         </TouchableOpacity>
       </View>
     </ImageBackground>
@@ -74,10 +77,25 @@ const styles = StyleSheet.create({
     paddingHorizontal: 32,
     width: '100%',
     alignItems: 'center',
+    marginBottom: 16,
   },
   signupText: {
     color: '#0033FF',
     fontSize: 18,
+    fontWeight: 'bold',
+  },
+  skipBtn: {
+    marginTop: 8,
+    paddingVertical: 10,
+    paddingHorizontal: 32,
+    borderRadius: 12,
+    backgroundColor: '#eee',
+    width: '100%',
+    alignItems: 'center',
+  },
+  skipText: {
+    color: '#0033FF',
+    fontSize: 16,
     fontWeight: 'bold',
   },
 });

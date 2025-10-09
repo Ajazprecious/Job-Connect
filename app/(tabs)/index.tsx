@@ -13,6 +13,7 @@ import {
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 import { useSavedJobs } from '../SavedJobsContext';
 import { useRouter } from 'expo-router';
+import { useUser } from "../context/UserContext";
 
 // Define job type
 interface Job {
@@ -58,7 +59,7 @@ export default function HomeScreen() {
   const { savedJobs, saveJob, removeJob } = useSavedJobs();
   const router = useRouter();
   const [categoryCounts, setCategoryCounts] = useState<{ [key: string]: number }>({});
-
+  const { user } = useUser();
   useEffect(() => {
     const fetchJobs = async () => {
       try {
@@ -140,10 +141,10 @@ export default function HomeScreen() {
           style={styles.avatar}
         />
         <View style={{ flex: 1, marginLeft: 12 }}>
-          <Text style={styles.profileName}>Gift Nelson Brown</Text>
+          <Text style={styles.profileName}>{user?.name || "Guest"}</Text>
           <View style={{ flexDirection: "row", alignItems: "center" }}>
             <Ionicons name="location-sharp" size={16} color="#fff" />
-            <Text style={styles.profileLocation}>Abuja, Nigeria</Text>
+            <Text style={styles.profileLocation}>{user?.country || ""}</Text>
           </View>
         </View>
         <TouchableOpacity onPress={() => router.push('/settings')}>
