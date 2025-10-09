@@ -1,9 +1,12 @@
 import React from 'react';
 import { Image } from 'expo-image';
-import { Platform, StyleSheet, View, Text, TextInput, ScrollView } from 'react-native';
+import { StyleSheet, View, Text, TextInput, ScrollView } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
+import { useSavedJobs } from '../SavedJobsContext';
 
 export default function SavedJobsScreen() {
+  const { savedJobs } = useSavedJobs();
+
   return (
     <ScrollView style={styles.root} contentContainerStyle={{ paddingBottom: 24 }}>
       <Text style={styles.header}>Saved jobs</Text>
@@ -16,104 +19,47 @@ export default function SavedJobsScreen() {
         <MaterialIcons name="search" size={22} color="#888" />
       </View>
 
-      {/* Job Card 1 */}
-      <View style={styles.jobCard}>
-        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-          <Image
-            source={require('../../assets/images/icon.png')}
-            style={styles.jobLogo}
-          />
-          <View style={{ flex: 1, marginLeft: 10 }}>
-            <Text style={styles.jobTitle}>Software Engineer (Frontend)</Text>
-            <Text style={styles.jobCompany}>Cowrywise Inc.</Text>
-          </View>
-          <MaterialIcons name="bookmark" size={26} color="#0033FF" />
+      {savedJobs.length === 0 ? (
+        <View style={{ alignItems: 'center', marginTop: 40 }}>
+          <Text style={{ color: '#888', fontSize: 16 }}>No saved jobs yet</Text>
         </View>
-        <View style={styles.jobTagsRow}>
-          <View style={[styles.jobTag, { backgroundColor: '#FFE6E6' }]}>
-            <Text style={styles.jobTagText}>Fulltime</Text>
+      ) : (
+        savedJobs.map(job => (
+          <View style={styles.jobCard} key={job.id}>
+            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+              <Image
+                source={{ uri: job.logo || "https://via.placeholder.com/50" }}
+                style={styles.jobLogo}
+              />
+              <View style={{ flex: 1, marginLeft: 10 }}>
+                <Text style={styles.jobTitle}>{job.title}</Text>
+                <Text style={styles.jobCompany}>{job.company}</Text>
+              </View>
+              <MaterialIcons name="bookmark" size={26} color="#0033FF" />
+            </View>
+            <View style={styles.jobTagsRow}>
+              <View style={[styles.jobTag, { backgroundColor: "#FFE6E6" }]}>
+                <Text style={styles.jobTagText}>{job.job_type}</Text>
+              </View>
+              <View style={[styles.jobTag, { backgroundColor: "#FFF7B2" }]}>
+                <Text style={styles.jobTagText}>{job.location}</Text>
+              </View>
+              <View style={[styles.jobTag, { backgroundColor: "#F4F1FF" }]}>
+                <Text style={styles.jobTagText}>{job.category}</Text>
+              </View>
+            </View>
+            <Text style={styles.jobDesc} numberOfLines={2}>
+              {job.description.replace(/<[^>]+>/g, "")}
+            </Text>
+            <View style={styles.jobMetaRow}>
+              <Text style={styles.jobMeta}>
+                Posted: {new Date(job.date).toLocaleDateString()}
+              </Text>
+              <Text style={styles.jobMeta}>| {job.source}</Text>
+            </View>
           </View>
-          <View style={[styles.jobTag, { backgroundColor: '#FFF7B2' }]}>
-            <Text style={styles.jobTagText}>Lagos/on site</Text>
-          </View>
-          <View style={[styles.jobTag, { backgroundColor: '#FFE6E6' }]}>
-            <Text style={styles.jobTagText}>Mid Level</Text>
-          </View>
-        </View>
-        <Text style={styles.jobDesc}>
-          Builds and maintains the user interface of web and mobile applications..
-        </Text>
-        <View style={styles.jobMetaRow}>
-          <Text style={styles.jobMeta}>Posted: 30 minutes ago</Text>
-          <Text style={styles.jobMeta}>| 20 Persons Applied</Text>
-        </View>
-      </View>
-
-      {/* Job Card 2 */}
-      <View style={styles.jobCard}>
-        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-          <Image
-            source={require('../../assets/images/google-logo.png')}
-            style={styles.jobLogo}
-          />
-          <View style={{ flex: 1, marginLeft: 10 }}>
-            <Text style={styles.jobTitle}>Data Analyst</Text>
-            <Text style={styles.jobCompany}>Google international</Text>
-          </View>
-          <MaterialIcons name="bookmark" size={26} color="#0033FF" />
-        </View>
-        <View style={styles.jobTagsRow}>
-          <View style={[styles.jobTag, { backgroundColor: '#FFE6E6' }]}>
-            <Text style={styles.jobTagText}>Fulltime</Text>
-          </View>
-          <View style={[styles.jobTag, { backgroundColor: '#FFF7B2' }]}>
-            <Text style={styles.jobTagText}>California/Hybrid</Text>
-          </View>
-          <View style={[styles.jobTag, { backgroundColor: '#FFE6E6' }]}>
-            <Text style={styles.jobTagText}>Entry Level</Text>
-          </View>
-        </View>
-        <Text style={styles.jobDesc}>
-          Collects, processes, and analyzes data to help companies make informed decisions.
-        </Text>
-        <View style={styles.jobMetaRow}>
-          <Text style={styles.jobMeta}>Posted: 30 minutes ago</Text>
-          <Text style={styles.jobMeta}>| 20 Persons Applied</Text>
-        </View>
-      </View>
-
-      {/* Job Card 3 */}
-      <View style={styles.jobCard}>
-        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-          <Image
-            source={require('../../assets/images/icon.png')}
-            style={styles.jobLogo}
-          />
-          <View style={{ flex: 1, marginLeft: 10 }}>
-            <Text style={styles.jobTitle}>Software Engineer (Frontend)</Text>
-            <Text style={styles.jobCompany}>Cowrywise Inc.</Text>
-          </View>
-          <MaterialIcons name="bookmark" size={26} color="#0033FF" />
-        </View>
-        <View style={styles.jobTagsRow}>
-          <View style={[styles.jobTag, { backgroundColor: '#FFE6E6' }]}>
-            <Text style={styles.jobTagText}>Fulltime</Text>
-          </View>
-          <View style={[styles.jobTag, { backgroundColor: '#FFF7B2' }]}>
-            <Text style={styles.jobTagText}>Lagos/on site</Text>
-          </View>
-          <View style={[styles.jobTag, { backgroundColor: '#FFE6E6' }]}>
-            <Text style={styles.jobTagText}>Mid Level</Text>
-          </View>
-        </View>
-        <Text style={styles.jobDesc}>
-          Builds and maintains the user interface of web and mobile applications..
-        </Text>
-        <View style={styles.jobMetaRow}>
-          <Text style={styles.jobMeta}>Posted: 30 minutes ago</Text>
-          <Text style={styles.jobMeta}>| 20 Persons Applied</Text>
-        </View>
-      </View>
+        ))
+      )}
     </ScrollView>
   );
 }

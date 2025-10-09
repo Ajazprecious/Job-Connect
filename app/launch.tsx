@@ -1,9 +1,18 @@
 import React, { useEffect, useRef } from 'react';
 import { View, Text, StyleSheet, Animated, Image } from 'react-native';
+import { useRouter } from 'expo-router';
 
 export default function LaunchScreen() {
-  const scaleAnim = useRef(new Animated.Value(0.3)).current; // Start small
-  const rotateAnim = useRef(new Animated.Value(0)).current;  // Start at 0deg
+  const scaleAnim = useRef(new Animated.Value(0.3)).current;
+  const rotateAnim = useRef(new Animated.Value(0)).current;
+  const router = useRouter();
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      router.replace("/onboarding");
+    }, 2000);
+    return () => clearTimeout(timer);
+  }, [router]);
 
   useEffect(() => {
     Animated.parallel([
@@ -22,7 +31,7 @@ export default function LaunchScreen() {
 
   const rotate = rotateAnim.interpolate({
     inputRange: [0, 1],
-    outputRange: ['-90deg', '0deg'], // Rotate from left to right
+    outputRange: ['-90deg', '0deg'],
   });
 
   return (

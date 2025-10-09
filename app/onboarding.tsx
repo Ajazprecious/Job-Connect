@@ -1,7 +1,9 @@
 import React from 'react';
 import { View, Text, StyleSheet, ImageBackground, TouchableOpacity } from 'react-native';
+import { useRouter } from 'expo-router';
 
 export default function OnboardingScreen() {
+  const router = useRouter();
   return (
     <ImageBackground
       source={require('../assets/images/your-background-image.png')} // Replace with your image path
@@ -13,10 +15,10 @@ export default function OnboardingScreen() {
         <Text style={styles.subtitle}>
           Building Bridges Between Skills and Employers.
         </Text>
-        <TouchableOpacity style={styles.loginBtn}>
+        <TouchableOpacity style={styles.loginBtn} onPress={() => router.push('/login')}>
           <Text style={styles.loginText}>Login</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.signupBtn}>
+        <TouchableOpacity style={styles.signupBtn} onPress={() => router.push('/signup')}>
           <Text style={styles.signupText}>Sign up</Text>
         </TouchableOpacity>
       </View>
